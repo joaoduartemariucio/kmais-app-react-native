@@ -1,0 +1,22 @@
+# Files left out of the changed-lines coverage check (fnmatch globs, relative to the repo root).
+# Rule of thumb: only code without logic of its own — React Native layout and app wiring.
+# ViewModels, Domain and Data always count.
+
+# Routes, entry point and composition root
+src/app/*
+src/composition/*
+
+# Screens, rows and cards
+src/presentation/*/*View.tsx
+src/presentation/*/*Row.tsx
+src/presentation/*/*Card.tsx
+src/presentation/*/*Grid.tsx
+src/presentation/common/components/*
+src/presentation/common/ActionMenu.ts
+src/presentation/common/Palette.ts
+src/presentation/di/*
+src/presentation/navigation/*
+
+# Native module glue: expo-sqlite and expo-notifications only run on a device
+src/data/database/ExpoSqlDatabase.ts
+src/data/services/ExpoNotificationReminderScheduler.ts

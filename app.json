@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "KMais",
+    "slug": "kmais-app-react-native",
+    "scheme": "kmais",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.joaoduartemariucio.kmais-app-react-native",
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"],
+        "CFBundleLocalizations": ["en", "pt-BR"],
+        "LSApplicationCategoryType": "public.app-category.utilities"
+      }
+    },
+    "android": {
+      "package": "br.com.joaoduartemariucio.kmais_app_react_native",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-localization",
+      "expo-notifications",
+      "@react-native-community/datetimepicker"
+    ]
+  }
+}
