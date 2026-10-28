@@ -318,6 +318,33 @@ Fuel is teal and services indigo everywhere (rows, charts, badges), using the iO
 colors on both platforms. Status uses green,
 orange and red, so fuel deliberately avoids orange.
 
+### Transparent large-title header on iOS only
+
+The Stack header is transparent only on iOS (`headerTransparent: Platform.OS === 'ios'`). On iOS
+the scroll views use `contentInsetAdjustmentBehavior="automatic"`, which pushes the content
+below the large title and lets it scroll under the blurred bar. That prop does nothing on
+Android, so a transparent header there draws the title and back arrow on top of the first
+card. Android gets a solid header in the background color and the content starts below it.
+`headerLargeTitle` stays on every screen; Android ignores it.
+
+### Form sheets add the status bar inset on Android
+
+`FormSheet` opens a `Modal` with `presentationStyle="pageSheet"`. iOS shows it as a card below
+the status bar; Android shows it full screen and edge to edge, so the Cancel / title / Save bar
+would sit under the status bar. On Android the sheet pads its top by the safe-area top inset.
+The modal gets its own `SafeAreaProvider` because on Android a `Modal` is a separate window and
+the app's provider does not report its insets. iOS keeps no extra padding.
+
+### Service kind grid is built from rows, not `flexWrap`
+
+`ServiceKindGrid` used to give each cell a computed fractional width inside a wrapping row.
+Android rounds layout to physical pixels, so three cells plus gaps could end up a fraction wider
+than the container and the third cell wrapped, leaving two columns. The grid now splits the kinds
+into rows (`gridRows`) and each cell is `flex: 1`, so Yoga divides the row itself and it can never
+overflow; the last row is padded with empty cells so its items keep the same width. Yoga adds
+padding on top of `flexBasis: 0`, so the empty cells share the real cells' box style (`cellBox`:
+`flex: 1` plus the same padding); otherwise the real cells in the last row grow wider.
+
 ## Tooling
 
 ### Four specialized AI agents instead of one

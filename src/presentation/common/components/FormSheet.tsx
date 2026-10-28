@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { ActivityIndicator, Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { t } from '../../i18n/i18n';
 import type { FormState } from '../FormState';
@@ -61,8 +62,15 @@ function SheetHeader({ title, state, canSave, onSave, onCancel }: Omit<Props, 'c
 
 function SheetBody(props: Props) {
     const theme = useTheme();
+    const insets = useSafeAreaInsets();
     return (
-        <View style={{ flex: 1, backgroundColor: theme.background }}>
+        <View
+            style={{
+                flex: 1,
+                backgroundColor: theme.background,
+                paddingTop: Platform.OS === 'android' ? insets.top : 0
+            }}
+        >
             <SheetHeader {...props} />
             <ScrollView
                 keyboardDismissMode="interactive"
@@ -80,9 +88,11 @@ function SheetBody(props: Props) {
 export function FormSheet(props: Props) {
     return (
         <Modal visible animationType="slide" presentationStyle="pageSheet" onRequestClose={props.onCancel}>
-            <ElevationContext.Provider value>
-                <SheetBody {...props} />
-            </ElevationContext.Provider>
+            <SafeAreaProvider>
+                <ElevationContext.Provider value>
+                    <SheetBody {...props} />
+                </ElevationContext.Provider>
+            </SafeAreaProvider>
         </Modal>
     );
 }

@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme, SplashScreen, Stack, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import { Platform, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AppDependencies } from '@/composition/AppDependencies';
@@ -45,7 +45,7 @@ export default function KmaisApp() {
                     <Stack
                         screenOptions={{
                             headerLargeTitle: true,
-                            headerTransparent: true,
+                            headerTransparent: Platform.OS === 'ios',
                             headerLargeTitleShadowVisible: false,
                             headerShadowVisible: false,
                             headerBackButtonDisplayMode: 'minimal',
